@@ -6,23 +6,26 @@
     "start": "vite --host",
     "build:dev": "vite build",
     "build:production": "npm run build:dev && npm run gltf:transform",
-    "gltf:transform": "npm run transform --prefix node_modules/@needle-tools/gltf-build-pipeline"
+    "gltf:transform": "npm run transform --prefix node_modules/@needle-tools/gltf-build-pipeline",
+    "upload-s3": "aws s3 sync dist/ s3://web-games-test",
+    "invalidate-cloudfront-cache": "aws cloudfront create-invalidation --distribution-id E1JDFAQ1I3ABK7 --path '/*'",
+    "deploy": "npm run build:production && npm run upload-s3 && npm run invalidate-cloudfront-cache"
   },
   "dependencies": {
-	  "@needle-tools/engine": "^3.21.5",
-	  "three": "npm:@needle-tools/three@^0.154.3"
-	},
+    "@needle-tools/engine": "^3.21.5",
+    "three": "npm:@needle-tools/three@^0.154.3"
+  },
   "devDependencies": {
-	  "@needle-tools/helper": "^1.6.0",
-	  "@types/three": "0.154.0",
-	  "@vitejs/plugin-basic-ssl": "^1.0.1",
-	  "typescript": "^5.0.2",
-	  "vite": "4.3.9",
-	  "vite-plugin-compression": "^0.5.1",
-	  "@sveltejs/vite-plugin-svelte": "^2.0.4",
-	  "@tsconfig/svelte": "^5.0.0",
-	  "svelte": "^4.1.1",
-	  "svelte-check": "^3.1.4",
-	  "svelte-preprocess": "^5.0.3"
-	}
+    "@needle-tools/helper": "^1.6.0",
+    "@sveltejs/vite-plugin-svelte": "^2.0.4",
+    "@tsconfig/svelte": "^5.0.0",
+    "@types/three": "0.154.0",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "svelte": "^4.1.1",
+    "svelte-check": "^3.1.4",
+    "svelte-preprocess": "^5.0.3",
+    "typescript": "^5.0.2",
+    "vite": "4.3.9",
+    "vite-plugin-compression": "^0.5.1"
+  }
 }
